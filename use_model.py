@@ -70,6 +70,28 @@ def create_recipes_lst():
         recipes.append(recipe_dct)
     return recipes
 
+'''
+Figure code provided on Google Colab USE model.
+'''
+def plot_similarity(labels, features, rotation):
+  corr = np.inner(features, features)
+  sns.set(font_scale=1.2)
+  labels = [lab.split("\n")[0] for lab in labels]
+  g = sns.heatmap(
+      corr,
+      xticklabels=labels,
+      yticklabels=labels,
+      vmin=0,
+      vmax=1,
+      cmap="YlOrRd")
+  g.set_xticklabels(labels, rotation=rotation)
+  g.set_title("Semantic Textual Similarity")
+
+def run_and_plot(messages_):
+  messages_ = messages_
+  message_embeddings_ = embed(messages_)
+  plot_similarity(messages_, message_embeddings_, 90)
+
 def get_precision(recipes):
     count = 1
     for recipe in recipes:
